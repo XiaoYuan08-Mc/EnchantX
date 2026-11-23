@@ -1,0 +1,80 @@
+pool: boots
+
+affixes:
+  lightfoot:
+    name: "轻盈"
+    desc: "移动速度提升"
+    targets: [BOOTS]
+    effect: attribute
+    attribute: MOVEMENT_SPEED
+    operation: add_scalar
+    display: PERCENT
+    weight: 12
+    tiers:
+      1: {min: 0.02, max: 0.04, weight: 42, cost: 1}
+      2: {min: 0.05, max: 0.07, weight: 28, cost: 2}
+      3: {min: 0.08, max: 0.10, weight: 16, cost: 3}
+      4: {min: 0.11, max: 0.14, weight: 8, cost: 4}
+      5: {min: 0.15, max: 0.18, weight: 3, cost: 5}
+
+  snowstep:
+    name: "踏雪"
+    desc: "摔落伤害降低"
+    targets: [BOOTS]
+    effect: fall_reduce
+    display: PERCENT
+    weight: 10
+    tiers:
+      1: {min: 0.10, max: 0.16, weight: 42, cost: 1}
+      2: {min: 0.18, max: 0.24, weight: 28, cost: 2}
+      3: {min: 0.26, max: 0.33, weight: 16, cost: 3}
+      4: {min: 0.35, max: 0.44, weight: 8, cost: 4}
+      5: {min: 0.46, max: 0.58, weight: 3, cost: 5}
+
+  sprint:
+    name: "疾步"
+    desc: "安全下落高度提升"
+    targets: [BOOTS]
+    effect: attribute
+    attribute: SAFE_FALL_DISTANCE
+    operation: add
+    display: FLAT
+    weight: 8
+    tiers:
+      1: {min: 1, max: 2, weight: 42, cost: 1}
+      2: {min: 2, max: 3, weight: 28, cost: 2}
+      3: {min: 3, max: 4, weight: 16, cost: 3}
+      4: {min: 4, max: 5, weight: 8, cost: 4}
+      5: {min: 5, max: 7, weight: 3, cost: 5}
+
+  aqua:
+    name: "涉水"
+    desc: "水中移动效率提升"
+    targets: [BOOTS]
+    effect: attribute
+    attribute: WATER_MOVEMENT_EFFICIENCY
+    operation: add
+    display: PERCENT
+    weight: 7
+    tiers:
+      1: {min: 0.10, max: 0.18, weight: 42, cost: 1}
+      2: {min: 0.20, max: 0.28, weight: 28, cost: 2}
+      3: {min: 0.30, max: 0.38, weight: 16, cost: 3}
+      4: {min: 0.40, max: 0.50, weight: 8, cost: 4}
+      5: {min: 0.52, max: 0.65, weight: 3, cost: 5}
+
+  greaves:
+    name: "护胫"
+    desc: "护甲值提升"
+    targets: [BOOTS]
+    effect: attribute
+    attribute: ARMOR
+    operation: add
+    display: FLAT
+    weight: 10
+    tiers:
+      1: {min: 1.0, max: 1.6, weight: 42, cost: 1}
+      2: {min: 1.8, max: 2.4, weight: 28, cost: 2}
+      3: {min: 2.6, max: 3.2, weight: 16, cost: 3}
+      4: {min: 3.4, max: 4.0, weight: 8, cost: 4}
+      5: {min: 4.2, max: 5.0, weight: 3, cost: 5}

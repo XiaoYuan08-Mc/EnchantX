@@ -1,0 +1,189 @@
+pool: armor
+
+affixes:
+  protection:
+    name: "保护"
+    desc: "受到伤害降低"
+    targets: [HELMET, CHESTPLATE, LEGGINGS, BOOTS]
+    effect: damage_reduce
+    display: PERCENT
+    conflicts: [guard]
+    weight: 13
+    tiers:
+      1: {min: 0.03, max: 0.05, weight: 42, cost: 1}
+      2: {min: 0.06, max: 0.08, weight: 28, cost: 2}
+      3: {min: 0.09, max: 0.11, weight: 16, cost: 3}
+      4: {min: 0.12, max: 0.14, weight: 8, cost: 4}
+      5: {min: 0.15, max: 0.18, weight: 3, cost: 5}
+
+  armoring:
+    name: "护甲"
+    desc: "护甲值提升"
+    targets: [HELMET, CHESTPLATE, LEGGINGS, BOOTS]
+    effect: attribute
+    attribute: ARMOR
+    operation: add
+    display: FLAT
+    weight: 12
+    tiers:
+      1: {min: 1.0, max: 1.6, weight: 42, cost: 1}
+      2: {min: 1.8, max: 2.4, weight: 28, cost: 2}
+      3: {min: 2.6, max: 3.2, weight: 16, cost: 3}
+      4: {min: 3.4, max: 4.0, weight: 8, cost: 4}
+      5: {min: 4.2, max: 5.0, weight: 3, cost: 5}
+
+  toughness:
+    name: "韧性"
+    desc: "护甲韧性提升"
+    targets: [HELMET, CHESTPLATE, LEGGINGS, BOOTS]
+    effect: attribute
+    attribute: ARMOR_TOUGHNESS
+    operation: add
+    display: FLAT
+    weight: 9
+    tiers:
+      1: {min: 0.8, max: 1.2, weight: 42, cost: 1}
+      2: {min: 1.4, max: 1.8, weight: 28, cost: 2}
+      3: {min: 2.0, max: 2.6, weight: 16, cost: 3}
+      4: {min: 2.8, max: 3.4, weight: 8, cost: 4}
+      5: {min: 3.6, max: 4.4, weight: 3, cost: 5}
+
+  vitality:
+    name: "生命"
+    desc: "生命上限提升"
+    targets: [HELMET, CHESTPLATE, LEGGINGS, BOOTS]
+    effect: attribute
+    attribute: MAX_HEALTH
+    operation: add
+    display: FLAT
+    conflicts: [curse_weak]
+    weight: 10
+    tiers:
+      1: {min: 2, max: 3, weight: 42, cost: 1}
+      2: {min: 4, max: 5, weight: 28, cost: 2}
+      3: {min: 6, max: 8, weight: 16, cost: 3}
+      4: {min: 9, max: 11, weight: 8, cost: 4}
+      5: {min: 12, max: 15, weight: 3, cost: 5}
+
+  firm:
+    name: "抗性"
+    desc: "击退抗性提升"
+    targets: [HELMET, CHESTPLATE, LEGGINGS, BOOTS]
+    effect: attribute
+    attribute: KNOCKBACK_RESISTANCE
+    operation: add
+    display: PERCENT
+    weight: 8
+    tiers:
+      1: {min: 0.10, max: 0.15, weight: 42, cost: 1}
+      2: {min: 0.18, max: 0.24, weight: 28, cost: 2}
+      3: {min: 0.27, max: 0.33, weight: 16, cost: 3}
+      4: {min: 0.36, max: 0.43, weight: 8, cost: 4}
+      5: {min: 0.46, max: 0.55, weight: 3, cost: 5}
+
+  reflect:
+    name: "反伤"
+    desc: "受击时反弹部分伤害"
+    targets: [HELMET, CHESTPLATE, LEGGINGS, BOOTS]
+    effect: reflect
+    display: PERCENT
+    group: sustain
+    conflicts: [lifesteal]
+    weight: 9
+    tiers:
+      1: {min: 0.05, max: 0.08, weight: 42, cost: 1}
+      2: {min: 0.09, max: 0.13, weight: 28, cost: 2}
+      3: {min: 0.14, max: 0.19, weight: 16, cost: 3}
+      4: {min: 0.20, max: 0.26, weight: 8, cost: 4}
+      5: {min: 0.27, max: 0.35, weight: 3, cost: 5}
+
+  dodge:
+    name: "闪避"
+    desc: "按概率免伤"
+    targets: [HELMET, CHESTPLATE, LEGGINGS, BOOTS]
+    effect: dodge
+    display: PERCENT
+    conflicts: [guard]
+    weight: 8
+    tiers:
+      1: {min: 0.03, max: 0.05, weight: 42, cost: 1}
+      2: {min: 0.06, max: 0.08, weight: 28, cost: 2}
+      3: {min: 0.09, max: 0.11, weight: 16, cost: 3}
+      4: {min: 0.12, max: 0.14, weight: 8, cost: 4}
+      5: {min: 0.15, max: 0.18, weight: 3, cost: 5}
+
+  feather:
+    name: "缓降"
+    desc: "摔落伤害降低"
+    targets: [BOOTS]
+    effect: fall_reduce
+    display: PERCENT
+    weight: 9
+    tiers:
+      1: {min: 0.10, max: 0.16, weight: 42, cost: 1}
+      2: {min: 0.18, max: 0.24, weight: 28, cost: 2}
+      3: {min: 0.26, max: 0.33, weight: 16, cost: 3}
+      4: {min: 0.35, max: 0.44, weight: 8, cost: 4}
+      5: {min: 0.46, max: 0.58, weight: 3, cost: 5}
+
+  swift:
+    name: "迅捷"
+    desc: "移动速度提升"
+    targets: [HELMET, CHESTPLATE, LEGGINGS, BOOTS]
+    effect: attribute
+    attribute: MOVEMENT_SPEED
+    operation: add_scalar
+    display: PERCENT
+    conflicts: [curse_heavy, curse_slow]
+    weight: 10
+    tiers:
+      1: {min: 0.02, max: 0.04, weight: 42, cost: 1}
+      2: {min: 0.05, max: 0.07, weight: 28, cost: 2}
+      3: {min: 0.08, max: 0.10, weight: 16, cost: 3}
+      4: {min: 0.11, max: 0.14, weight: 8, cost: 4}
+      5: {min: 0.15, max: 0.18, weight: 3, cost: 5}
+
+  saturation:
+    name: "饱食"
+    desc: "按概率不掉饱食度"
+    targets: [HELMET, CHESTPLATE, LEGGINGS, BOOTS]
+    effect: hunger_save
+    display: PERCENT
+    weight: 7
+    tiers:
+      1: {min: 0.10, max: 0.16, weight: 42, cost: 1}
+      2: {min: 0.18, max: 0.24, weight: 28, cost: 2}
+      3: {min: 0.26, max: 0.32, weight: 16, cost: 3}
+      4: {min: 0.34, max: 0.40, weight: 8, cost: 4}
+      5: {min: 0.42, max: 0.50, weight: 3, cost: 5}
+
+  gills:
+    name: "鳃"
+    desc: "水下氧气加成"
+    targets: [HELMET]
+    effect: attribute
+    attribute: OXYGEN_BONUS
+    operation: add
+    display: FLAT
+    weight: 6
+    tiers:
+      1: {min: 1, max: 2, weight: 42, cost: 1}
+      2: {min: 2, max: 3, weight: 28, cost: 2}
+      3: {min: 3, max: 4, weight: 16, cost: 3}
+      4: {min: 4, max: 5, weight: 8, cost: 4}
+      5: {min: 5, max: 6, weight: 3, cost: 5}
+
+  guard:
+    name: "守望"
+    desc: "低血量时额外减伤"
+    targets: [CHESTPLATE]
+    effect: damage_reduce
+    display: PERCENT
+    conflicts: [protection, dodge]
+    weight: 6
+    tiers:
+      1: {min: 0.04, max: 0.06, weight: 42, cost: 1}
+      2: {min: 0.07, max: 0.09, weight: 28, cost: 2}
+      3: {min: 0.10, max: 0.13, weight: 16, cost: 3}
+      4: {min: 0.14, max: 0.17, weight: 8, cost: 4}
+      5: {min: 0.18, max: 0.22, weight: 3, cost: 5}

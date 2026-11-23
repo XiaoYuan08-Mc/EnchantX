@@ -1,0 +1,333 @@
+pool: weapon
+
+affixes:
+  sharpness:
+    name: "锋利"
+    desc: "攻击伤害提升"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: attribute
+    attribute: ATTACK_DAMAGE
+    operation: add
+    display: FLAT
+    group: damage_core
+    conflicts: [blunt, smite, bane]
+    weight: 14
+    tiers:
+      1: {min: 0.8, max: 1.4, weight: 42, cost: 1}
+      2: {min: 1.8, max: 2.6, weight: 28, cost: 2}
+      3: {min: 3.2, max: 4.2, weight: 16, cost: 3}
+      4: {min: 5.0, max: 6.5, weight: 8, cost: 4}
+      5: {min: 7.5, max: 9.5, weight: 3, cost: 5}
+
+  smite:
+    name: "亡灵杀手"
+    desc: "对亡灵系额外伤害"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: undead_bonus
+    display: PERCENT
+    group: damage_core
+    conflicts: [sharpness, blunt, bane]
+    weight: 9
+    tiers:
+      1: {min: 0.10, max: 0.16, weight: 40, cost: 1}
+      2: {min: 0.18, max: 0.26, weight: 28, cost: 2}
+      3: {min: 0.28, max: 0.36, weight: 16, cost: 3}
+      4: {min: 0.38, max: 0.46, weight: 8, cost: 4}
+      5: {min: 0.48, max: 0.58, weight: 3, cost: 5}
+
+  bane:
+    name: "节肢杀手"
+    desc: "对节肢系额外伤害"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: arthropod_bonus
+    display: PERCENT
+    group: damage_core
+    conflicts: [sharpness, blunt, smite]
+    weight: 9
+    tiers:
+      1: {min: 0.10, max: 0.16, weight: 40, cost: 1}
+      2: {min: 0.18, max: 0.26, weight: 28, cost: 2}
+      3: {min: 0.28, max: 0.36, weight: 16, cost: 3}
+      4: {min: 0.38, max: 0.46, weight: 8, cost: 4}
+      5: {min: 0.48, max: 0.58, weight: 3, cost: 5}
+
+  crit:
+    name: "暴击"
+    desc: "按概率打出暴击"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: crit_chance
+    display: PERCENT
+    conflicts: [lethal]
+    weight: 10
+    tiers:
+      1: {min: 0.04, max: 0.07, weight: 40, cost: 1}
+      2: {min: 0.08, max: 0.12, weight: 28, cost: 2}
+      3: {min: 0.13, max: 0.17, weight: 16, cost: 3}
+      4: {min: 0.18, max: 0.22, weight: 8, cost: 4}
+      5: {min: 0.23, max: 0.28, weight: 3, cost: 5}
+
+  lethal:
+    name: "致命"
+    desc: "暴击倍率提升"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: crit_damage
+    display: PERCENT
+    conflicts: [crit]
+    weight: 10
+    tiers:
+      1: {min: 0.10, max: 0.15, weight: 40, cost: 1}
+      2: {min: 0.16, max: 0.22, weight: 28, cost: 2}
+      3: {min: 0.23, max: 0.30, weight: 16, cost: 3}
+      4: {min: 0.31, max: 0.40, weight: 8, cost: 4}
+      5: {min: 0.41, max: 0.55, weight: 3, cost: 5}
+
+  lifesteal:
+    name: "吸血"
+    desc: "造成伤害时回复生命"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: lifesteal
+    display: PERCENT
+    group: sustain
+    conflicts: [reflect]
+    weight: 9
+    tiers:
+      1: {min: 0.03, max: 0.05, weight: 40, cost: 1}
+      2: {min: 0.06, max: 0.08, weight: 28, cost: 2}
+      3: {min: 0.09, max: 0.11, weight: 16, cost: 3}
+      4: {min: 0.12, max: 0.14, weight: 8, cost: 4}
+      5: {min: 0.15, max: 0.18, weight: 3, cost: 5}
+
+  armor_pen:
+    name: "破甲"
+    desc: "按护甲比例穿透伤害"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: armor_pen
+    display: PERCENT
+    weight: 10
+    tiers:
+      1: {min: 0.06, max: 0.10, weight: 40, cost: 1}
+      2: {min: 0.11, max: 0.16, weight: 28, cost: 2}
+      3: {min: 0.17, max: 0.23, weight: 16, cost: 3}
+      4: {min: 0.24, max: 0.31, weight: 8, cost: 4}
+      5: {min: 0.32, max: 0.40, weight: 3, cost: 5}
+
+  true_edge:
+    name: "真伤"
+    desc: "无视护甲的固定追加伤害"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: true_damage
+    display: FLAT
+    weight: 7
+    tiers:
+      1: {min: 0.5, max: 1.0, weight: 40, cost: 1}
+      2: {min: 1.5, max: 2.2, weight: 28, cost: 2}
+      3: {min: 2.6, max: 3.5, weight: 16, cost: 3}
+      4: {min: 3.8, max: 5.0, weight: 8, cost: 4}
+      5: {min: 5.5, max: 7.0, weight: 3, cost: 5}
+
+  execute:
+    name: "处决"
+    desc: "目标低血量时追加伤害"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: execute
+    display: PERCENT
+    weight: 8
+    tiers:
+      1: {min: 0.08, max: 0.12, weight: 40, cost: 1}
+      2: {min: 0.14, max: 0.18, weight: 28, cost: 2}
+      3: {min: 0.20, max: 0.26, weight: 16, cost: 3}
+      4: {min: 0.28, max: 0.34, weight: 8, cost: 4}
+      5: {min: 0.36, max: 0.44, weight: 3, cost: 5}
+
+  ignite:
+    name: "燎原"
+    desc: "命中点燃目标"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: ignite
+    display: SECONDS
+    weight: 9
+    tiers:
+      1: {min: 2, max: 3, weight: 40, cost: 1}
+      2: {min: 3, max: 4, weight: 28, cost: 2}
+      3: {min: 4, max: 5, weight: 16, cost: 3}
+      4: {min: 5, max: 6, weight: 8, cost: 4}
+      5: {min: 6, max: 8, weight: 3, cost: 5}
+
+  knockback:
+    name: "击退"
+    desc: "命中额外推开目标"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: knockback
+    display: FLAT
+    weight: 9
+    tiers:
+      1: {min: 0.3, max: 0.5, weight: 40, cost: 1}
+      2: {min: 0.55, max: 0.75, weight: 28, cost: 2}
+      3: {min: 0.8, max: 1.0, weight: 16, cost: 3}
+      4: {min: 1.05, max: 1.3, weight: 8, cost: 4}
+      5: {min: 1.35, max: 1.6, weight: 3, cost: 5}
+
+  venom:
+    name: "淬毒"
+    desc: "命中按概率施加中毒"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: poison
+    display: PERCENT
+    weight: 8
+    tiers:
+      1: {min: 0.10, max: 0.16, weight: 40, cost: 1}
+      2: {min: 0.18, max: 0.24, weight: 28, cost: 2}
+      3: {min: 0.26, max: 0.32, weight: 16, cost: 3}
+      4: {min: 0.34, max: 0.40, weight: 8, cost: 4}
+      5: {min: 0.42, max: 0.50, weight: 3, cost: 5}
+
+  withering:
+    name: "凋零"
+    desc: "命中按概率施加凋零"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: wither
+    display: PERCENT
+    weight: 6
+    tiers:
+      1: {min: 0.08, max: 0.13, weight: 40, cost: 1}
+      2: {min: 0.15, max: 0.20, weight: 28, cost: 2}
+      3: {min: 0.22, max: 0.27, weight: 16, cost: 3}
+      4: {min: 0.29, max: 0.34, weight: 8, cost: 4}
+      5: {min: 0.36, max: 0.42, weight: 3, cost: 5}
+
+  frost:
+    name: "霜缚"
+    desc: "命中按概率减速目标"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: slow
+    display: PERCENT
+    weight: 8
+    tiers:
+      1: {min: 0.10, max: 0.16, weight: 40, cost: 1}
+      2: {min: 0.18, max: 0.24, weight: 28, cost: 2}
+      3: {min: 0.26, max: 0.32, weight: 16, cost: 3}
+      4: {min: 0.34, max: 0.40, weight: 8, cost: 4}
+      5: {min: 0.42, max: 0.50, weight: 3, cost: 5}
+
+  first_strike:
+    name: "先手"
+    desc: "冷却满时的第一下额外伤害"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: first_strike
+    display: PERCENT
+    weight: 7
+    tiers:
+      1: {min: 0.08, max: 0.12, weight: 40, cost: 1}
+      2: {min: 0.14, max: 0.18, weight: 28, cost: 2}
+      3: {min: 0.20, max: 0.25, weight: 16, cost: 3}
+      4: {min: 0.26, max: 0.32, weight: 8, cost: 4}
+      5: {min: 0.34, max: 0.42, weight: 3, cost: 5}
+
+  heal_kill:
+    name: "嗜杀"
+    desc: "击杀回复生命上限占比"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: heal_on_kill
+    display: PERCENT
+    group: sustain
+    weight: 7
+    tiers:
+      1: {min: 0.03, max: 0.05, weight: 40, cost: 1}
+      2: {min: 0.06, max: 0.08, weight: 28, cost: 2}
+      3: {min: 0.09, max: 0.12, weight: 16, cost: 3}
+      4: {min: 0.13, max: 0.17, weight: 8, cost: 4}
+      5: {min: 0.18, max: 0.24, weight: 3, cost: 5}
+
+  blunt:
+    name: "钝化"
+    desc: "诅咒：攻击伤害降低"
+    positive: false
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: attribute
+    attribute: ATTACK_DAMAGE
+    operation: add
+    display: FLAT
+    group: damage_core
+    conflicts: [sharpness, smite, bane]
+    weight: 4
+    tiers:
+      1: {min: -1.6, max: -1.0, weight: 60, cost: 1}
+      2: {min: -2.4, max: -1.8, weight: 30, cost: 2}
+      3: {min: -3.2, max: -2.6, weight: 10, cost: 3}
+
+  lag:
+    name: "迟滞"
+    desc: "诅咒：攻击速度降低"
+    positive: false
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: attribute
+    attribute: ATTACK_SPEED
+    operation: add_scalar
+    display: PERCENT
+    weight: 4
+    tiers:
+      1: {min: -0.08, max: -0.05, weight: 60, cost: 1}
+      2: {min: -0.12, max: -0.09, weight: 30, cost: 2}
+      3: {min: -0.18, max: -0.13, weight: 10, cost: 3}
+
+  cleave:
+    name: "顺劈"
+    desc: "命中时波及周围敌人"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: sweep
+    display: PERCENT
+    conflicts: [combo]
+    weight: 8
+    tiers:
+      1: {min: 0.08, max: 0.12, weight: 42, cost: 1}
+      2: {min: 0.14, max: 0.18, weight: 28, cost: 2}
+      3: {min: 0.20, max: 0.24, weight: 16, cost: 3}
+      4: {min: 0.26, max: 0.30, weight: 8, cost: 4}
+      5: {min: 0.32, max: 0.40, weight: 3, cost: 5}
+
+  combo:
+    name: "连击"
+    desc: "按概率追加一次额外伤害"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: combo
+    display: PERCENT
+    conflicts: [cleave]
+    weight: 8
+    tiers:
+      1: {min: 0.06, max: 0.09, weight: 42, cost: 1}
+      2: {min: 0.10, max: 0.13, weight: 28, cost: 2}
+      3: {min: 0.14, max: 0.18, weight: 16, cost: 3}
+      4: {min: 0.19, max: 0.23, weight: 8, cost: 4}
+      5: {min: 0.24, max: 0.30, weight: 3, cost: 5}
+
+  rend:
+    name: "血刃"
+    desc: "按伤害比例吸血"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: lifesteal
+    display: PERCENT
+    group: sustain
+    conflicts: [lifesteal]
+    weight: 7
+    tiers:
+      1: {min: 0.03, max: 0.04, weight: 42, cost: 1}
+      2: {min: 0.05, max: 0.06, weight: 28, cost: 2}
+      3: {min: 0.07, max: 0.09, weight: 16, cost: 3}
+      4: {min: 0.10, max: 0.12, weight: 8, cost: 4}
+      5: {min: 0.13, max: 0.16, weight: 3, cost: 5}
+
+  breaker:
+    name: "破军"
+    desc: "无视部分护甲"
+    targets: [SWORD, AXE, MACE, SPEAR]
+    effect: armor_pen
+    display: PERCENT
+    conflicts: [armor_pen]
+    weight: 7
+    tiers:
+      1: {min: 0.06, max: 0.10, weight: 42, cost: 1}
+      2: {min: 0.12, max: 0.17, weight: 28, cost: 2}
+      3: {min: 0.19, max: 0.24, weight: 16, cost: 3}
+      4: {min: 0.26, max: 0.32, weight: 8, cost: 4}
+      5: {min: 0.34, max: 0.42, weight: 3, cost: 5}
+

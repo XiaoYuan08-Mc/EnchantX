@@ -1,0 +1,158 @@
+pool: tool
+
+affixes:
+  efficiency:
+    name: "效率"
+    desc: "挖掘速度提升"
+    targets: [PICKAXE, SHOVEL, HOE, AXE]
+    effect: attribute
+    attribute: BLOCK_BREAK_SPEED
+    operation: add_scalar
+    display: PERCENT
+    weight: 14
+    tiers:
+      1: {min: 0.12, max: 0.20, weight: 42, cost: 1}
+      2: {min: 0.22, max: 0.30, weight: 28, cost: 2}
+      3: {min: 0.32, max: 0.42, weight: 16, cost: 3}
+      4: {min: 0.44, max: 0.55, weight: 8, cost: 4}
+      5: {min: 0.58, max: 0.70, weight: 3, cost: 5}
+
+  fortune:
+    name: "时运"
+    desc: "方块掉落额外掉落"
+    targets: [PICKAXE, SHOVEL, HOE, AXE]
+    effect: fortune
+    display: PERCENT
+    conflicts: [dull]
+    weight: 12
+    tiers:
+      1: {min: 0.08, max: 0.12, weight: 42, cost: 1}
+      2: {min: 0.14, max: 0.18, weight: 28, cost: 2}
+      3: {min: 0.20, max: 0.26, weight: 16, cost: 3}
+      4: {min: 0.28, max: 0.34, weight: 8, cost: 4}
+      5: {min: 0.36, max: 0.45, weight: 3, cost: 5}
+
+  reach:
+    name: "触及"
+    desc: "方块交互距离增加"
+    targets: [PICKAXE, SHOVEL, HOE, AXE]
+    effect: attribute
+    attribute: BLOCK_INTERACTION_RANGE
+    operation: add
+    display: FLAT
+    weight: 8
+    tiers:
+      1: {min: 0.3, max: 0.5, weight: 40, cost: 1}
+      2: {min: 0.6, max: 0.8, weight: 28, cost: 2}
+      3: {min: 0.9, max: 1.2, weight: 16, cost: 3}
+      4: {min: 1.3, max: 1.6, weight: 8, cost: 4}
+      5: {min: 1.7, max: 2.0, weight: 3, cost: 5}
+
+  smelter:
+    name: "熔炼"
+    desc: "掉落物按概率自动烧炼"
+    targets: [PICKAXE, SHOVEL, HOE, AXE]
+    effect: auto_smelt
+    display: PERCENT
+    weight: 8
+    tiers:
+      1: {min: 0.15, max: 0.22, weight: 42, cost: 1}
+      2: {min: 0.25, max: 0.32, weight: 28, cost: 2}
+      3: {min: 0.35, max: 0.45, weight: 16, cost: 3}
+      4: {min: 0.48, max: 0.58, weight: 8, cost: 4}
+      5: {min: 0.62, max: 0.75, weight: 3, cost: 5}
+
+  insight:
+    name: "悟性"
+    desc: "获得经验增加"
+    targets: [PICKAXE, SHOVEL, HOE, AXE]
+    effect: exp_bonus
+    display: PERCENT
+    weight: 9
+    tiers:
+      1: {min: 0.05, max: 0.08, weight: 42, cost: 1}
+      2: {min: 0.09, max: 0.12, weight: 28, cost: 2}
+      3: {min: 0.13, max: 0.17, weight: 16, cost: 3}
+      4: {min: 0.18, max: 0.23, weight: 8, cost: 4}
+      5: {min: 0.24, max: 0.30, weight: 3, cost: 5}
+
+  dull:
+    name: "迟钝"
+    desc: "诅咒：挖掘速度降低"
+    positive: false
+    targets: [PICKAXE, SHOVEL, HOE, AXE]
+    effect: attribute
+    attribute: BLOCK_BREAK_SPEED
+    operation: add_scalar
+    display: PERCENT
+    conflicts: [efficiency, fortune]
+    weight: 4
+    tiers:
+      1: {min: -0.15, max: -0.10, weight: 60, cost: 1}
+      2: {min: -0.22, max: -0.16, weight: 30, cost: 2}
+      3: {min: -0.30, max: -0.23, weight: 10, cost: 3}
+
+  clumsy:
+    name: "笨拙"
+    desc: "诅咒：移动速度降低"
+    positive: false
+    targets: [PICKAXE, SHOVEL, HOE, AXE]
+    effect: attribute
+    attribute: MOVEMENT_SPEED
+    operation: add_scalar
+    display: PERCENT
+    weight: 4
+    tiers:
+      1: {min: -0.06, max: -0.03, weight: 60, cost: 1}
+      2: {min: -0.10, max: -0.07, weight: 30, cost: 2}
+      3: {min: -0.15, max: -0.11, weight: 10, cost: 3}
+
+  vein:
+    name: "连锁"
+    desc: "挖掘矿脉或原木时连带相邻方块"
+    targets: [PICKAXE, AXE, SHOVEL]
+    effect: vein
+    display: INT
+    group: mining_chain
+    weight: 7
+    tiers:
+      1: {min: 2, max: 3, weight: 42, cost: 1}
+      2: {min: 4, max: 5, weight: 28, cost: 2}
+      3: {min: 6, max: 7, weight: 16, cost: 3}
+      4: {min: 8, max: 9, weight: 8, cost: 4}
+      5: {min: 9, max: 10, weight: 3, cost: 5}
+
+  burrow:
+    name: "掘进"
+    desc: "挖掘速度提升"
+    targets: [PICKAXE, SHOVEL, HOE]
+    effect: attribute
+    attribute: BLOCK_BREAK_SPEED
+    operation: add_scalar
+    display: PERCENT
+    group: mining_speed
+    conflicts: [efficiency]
+    weight: 8
+    tiers:
+      1: {min: 0.15, max: 0.22, weight: 42, cost: 1}
+      2: {min: 0.25, max: 0.32, weight: 28, cost: 2}
+      3: {min: 0.35, max: 0.45, weight: 16, cost: 3}
+      4: {min: 0.48, max: 0.58, weight: 8, cost: 4}
+      5: {min: 0.62, max: 0.75, weight: 3, cost: 5}
+
+  prospect:
+    name: "寻宝"
+    desc: "掉落物数量概率增加"
+    targets: [PICKAXE, SHOVEL, HOE]
+    effect: fortune
+    display: PERCENT
+    group: fortune_core
+    conflicts: [fortune]
+    weight: 8
+    tiers:
+      1: {min: 0.08, max: 0.14, weight: 42, cost: 1}
+      2: {min: 0.16, max: 0.22, weight: 28, cost: 2}
+      3: {min: 0.24, max: 0.31, weight: 16, cost: 3}
+      4: {min: 0.33, max: 0.42, weight: 8, cost: 4}
+      5: {min: 0.44, max: 0.55, weight: 3, cost: 5}
+

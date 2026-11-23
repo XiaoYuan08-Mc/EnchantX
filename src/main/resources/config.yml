@@ -1,0 +1,52 @@
+# EnchantX 主配置
+settings:
+  # AFFIX = 附魔台只产词条（完全重制）
+  # HYBRID = 原版附魔照常，按概率额外挂一条词条（推荐上服默认）
+  # VANILLA = 不干预附魔台，只用重铸/拆解/展示
+  mode: HYBRID
+  # HYBRID 模式下额外挂词条的概率
+  hybrid-chance: 0.65
+  # HYBRID 模式下额外词条的数值系数（避免和原版附魔叠加过头）
+  hybrid-scale: 0.6
+  # 全局数值系数，调平衡最省事的旋钮
+  global-scale: 1.0
+  # 重铸时的强度基准（0-1，越高越容易出高档）
+  reforge-power: 0.6
+  debug: false
+
+# 重铸经济
+costs:
+  # 一次重掷的基础碎片
+  reroll: 6
+  # 每锁定一个槽位追加的碎片
+  lock-surcharge: 3
+  # 升档单价，实际消耗 = upgrade × 目标档位
+  upgrade: 12
+  # 拆解每条词条返还的碎片单价，实际返还 = 档位 × 该值
+  salvage-per-tier: 2
+
+# 词条书获取渠道
+books:
+  # 击杀怪物掉书的概率（0 关闭）
+  drop-chance: 0.06
+  # 宝箱战利品里出现词条书的概率
+  loot-chance: 0.10
+  # 钓鱼钓到词条书的概率
+  fishing-chance: 0.08
+  # /ex buy 一本词条书的碎片单价
+  buy-cost: 18
+  # /ex buy 未指定档位时的默认档位（不超过词条自身最高档）
+  buy-tier: 2
+
+# 词条槽位：按材质前缀匹配，越贵槽越多
+slots:
+  default: 2
+  by-material:
+    WOODEN: 1
+    GOLDEN: 1
+    LEATHER: 1
+    STONE: 2
+    CHAINMAIL: 2
+    IRON: 2
+    DIAMOND: 3
+    NETHERITE: 4

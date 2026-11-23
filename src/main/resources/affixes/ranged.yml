@@ -1,0 +1,164 @@
+pool: ranged
+
+affixes:
+  power:
+    name: "力量"
+    desc: "远程伤害提升"
+    targets: [BOW, CROSSBOW, TRIDENT]
+    effect: projectile_mult
+    display: PERCENT
+    conflicts: [weak]
+    weight: 14
+    tiers:
+      1: {min: 0.05, max: 0.09, weight: 42, cost: 1}
+      2: {min: 0.10, max: 0.15, weight: 28, cost: 2}
+      3: {min: 0.16, max: 0.22, weight: 16, cost: 3}
+      4: {min: 0.23, max: 0.30, weight: 8, cost: 4}
+      5: {min: 0.31, max: 0.40, weight: 3, cost: 5}
+
+  piercing:
+    name: "穿透"
+    desc: "远程破甲"
+    targets: [BOW, CROSSBOW, TRIDENT]
+    effect: armor_pen
+    display: PERCENT
+    weight: 10
+    tiers:
+      1: {min: 0.06, max: 0.10, weight: 42, cost: 1}
+      2: {min: 0.11, max: 0.16, weight: 28, cost: 2}
+      3: {min: 0.17, max: 0.23, weight: 16, cost: 3}
+      4: {min: 0.24, max: 0.31, weight: 8, cost: 4}
+      5: {min: 0.32, max: 0.42, weight: 3, cost: 5}
+
+  punch:
+    name: "冲击"
+    desc: "命中额外推开目标"
+    targets: [BOW, CROSSBOW, TRIDENT]
+    effect: knockback
+    display: FLAT
+    weight: 9
+    tiers:
+      1: {min: 0.3, max: 0.5, weight: 42, cost: 1}
+      2: {min: 0.55, max: 0.75, weight: 28, cost: 2}
+      3: {min: 0.8, max: 1.0, weight: 16, cost: 3}
+      4: {min: 1.05, max: 1.3, weight: 8, cost: 4}
+      5: {min: 1.35, max: 1.7, weight: 3, cost: 5}
+
+  flame:
+    name: "火矢"
+    desc: "命中点燃目标"
+    targets: [BOW, CROSSBOW, TRIDENT]
+    effect: ignite
+    display: SECONDS
+    weight: 9
+    tiers:
+      1: {min: 2, max: 3, weight: 42, cost: 1}
+      2: {min: 3, max: 4, weight: 28, cost: 2}
+      3: {min: 4, max: 5, weight: 16, cost: 3}
+      4: {min: 5, max: 6, weight: 8, cost: 4}
+      5: {min: 6, max: 8, weight: 3, cost: 5}
+
+  precision:
+    name: "精准"
+    desc: "暴击概率"
+    targets: [BOW, CROSSBOW, TRIDENT]
+    effect: crit_chance
+    display: PERCENT
+    conflicts: [deadshot]
+    weight: 10
+    tiers:
+      1: {min: 0.04, max: 0.06, weight: 42, cost: 1}
+      2: {min: 0.07, max: 0.10, weight: 28, cost: 2}
+      3: {min: 0.11, max: 0.15, weight: 16, cost: 3}
+      4: {min: 0.16, max: 0.20, weight: 8, cost: 4}
+      5: {min: 0.21, max: 0.26, weight: 3, cost: 5}
+
+  deadshot:
+    name: "致命射击"
+    desc: "暴击倍率"
+    targets: [BOW, CROSSBOW, TRIDENT]
+    effect: crit_damage
+    display: PERCENT
+    conflicts: [precision]
+    weight: 9
+    tiers:
+      1: {min: 0.10, max: 0.15, weight: 42, cost: 1}
+      2: {min: 0.16, max: 0.22, weight: 28, cost: 2}
+      3: {min: 0.23, max: 0.30, weight: 16, cost: 3}
+      4: {min: 0.31, max: 0.38, weight: 8, cost: 4}
+      5: {min: 0.39, max: 0.48, weight: 3, cost: 5}
+
+  venom_arrow:
+    name: "毒矢"
+    desc: "命中按概率中毒"
+    targets: [BOW, CROSSBOW, TRIDENT]
+    effect: poison
+    display: PERCENT
+    weight: 8
+    tiers:
+      1: {min: 0.10, max: 0.16, weight: 42, cost: 1}
+      2: {min: 0.18, max: 0.24, weight: 28, cost: 2}
+      3: {min: 0.26, max: 0.32, weight: 16, cost: 3}
+      4: {min: 0.34, max: 0.40, weight: 8, cost: 4}
+      5: {min: 0.42, max: 0.52, weight: 3, cost: 5}
+
+  weak:
+    name: "弱弓"
+    desc: "诅咒：远程伤害降低"
+    positive: false
+    targets: [BOW, CROSSBOW, TRIDENT]
+    effect: projectile_mult
+    display: PERCENT
+    conflicts: [power]
+    weight: 4
+    tiers:
+      1: {min: -0.08, max: -0.05, weight: 60, cost: 1}
+      2: {min: -0.14, max: -0.10, weight: 30, cost: 2}
+      3: {min: -0.20, max: -0.15, weight: 10, cost: 3}
+
+  cloudpierce:
+    name: "穿云"
+    desc: "远程伤害提升"
+    targets: [BOW, CROSSBOW, TRIDENT]
+    effect: projectile_mult
+    display: PERCENT
+    group: power_core
+    conflicts: [power]
+    weight: 9
+    tiers:
+      1: {min: 0.08, max: 0.12, weight: 42, cost: 1}
+      2: {min: 0.14, max: 0.18, weight: 28, cost: 2}
+      3: {min: 0.20, max: 0.25, weight: 16, cost: 3}
+      4: {min: 0.27, max: 0.33, weight: 8, cost: 4}
+      5: {min: 0.35, max: 0.45, weight: 3, cost: 5}
+
+  hunter:
+    name: "追猎"
+    desc: "按概率打出暴击"
+    targets: [BOW, CROSSBOW, TRIDENT]
+    effect: crit_chance
+    display: PERCENT
+    conflicts: [precision]
+    weight: 8
+    tiers:
+      1: {min: 0.06, max: 0.10, weight: 42, cost: 1}
+      2: {min: 0.11, max: 0.15, weight: 28, cost: 2}
+      3: {min: 0.16, max: 0.21, weight: 16, cost: 3}
+      4: {min: 0.22, max: 0.28, weight: 8, cost: 4}
+      5: {min: 0.29, max: 0.36, weight: 3, cost: 5}
+
+  steady:
+    name: "稳手"
+    desc: "击中击退距离增加"
+    targets: [BOW, CROSSBOW]
+    effect: knockback
+    display: FLAT
+    conflicts: [punch]
+    weight: 7
+    tiers:
+      1: {min: 0.3, max: 0.5, weight: 42, cost: 1}
+      2: {min: 0.6, max: 0.8, weight: 28, cost: 2}
+      3: {min: 0.9, max: 1.1, weight: 16, cost: 3}
+      4: {min: 1.2, max: 1.5, weight: 8, cost: 4}
+      5: {min: 1.6, max: 2.0, weight: 3, cost: 5}
+

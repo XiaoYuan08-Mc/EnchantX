@@ -1,0 +1,18 @@
+name: EnchantX
+version: '${version}'
+main: cn.mcfhm.enchantx.EnchantX
+api-version: '26.3'
+authors: [FHM]
+description: 原版附魔词条重制拓展
+commands:
+  enchantx:
+    description: 词条重制主指令
+    aliases: [ex, cx]
+    usage: /enchantx help
+permissions:
+  enchantx.use:
+    description: 使用重铸、拆解、查看词条
+    default: true
+  enchantx.admin:
+    description: 重载、发放词条书、管理碎片
+    default: op

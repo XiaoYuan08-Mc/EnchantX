@@ -1,0 +1,138 @@
+pool: universal
+
+affixes:
+  mending:
+    name: "修补"
+    desc: "按概率免疫耐久损耗"
+    targets: [ANY]
+    effect: durability_save
+    display: PERCENT
+    conflicts: [curse_fragile]
+    weight: 12
+    tiers:
+      1: {min: 0.10, max: 0.16, weight: 42, cost: 1}
+      2: {min: 0.18, max: 0.24, weight: 28, cost: 2}
+      3: {min: 0.26, max: 0.32, weight: 16, cost: 3}
+      4: {min: 0.34, max: 0.40, weight: 8, cost: 4}
+      5: {min: 0.42, max: 0.55, weight: 3, cost: 5}
+
+  exp_boost:
+    name: "悟道"
+    desc: "经验获取提升"
+    targets: [ANY]
+    effect: exp_bonus
+    display: PERCENT
+    weight: 9
+    tiers:
+      1: {min: 0.05, max: 0.08, weight: 42, cost: 1}
+      2: {min: 0.09, max: 0.12, weight: 28, cost: 2}
+      3: {min: 0.13, max: 0.17, weight: 16, cost: 3}
+      4: {min: 0.18, max: 0.23, weight: 8, cost: 4}
+      5: {min: 0.24, max: 0.32, weight: 3, cost: 5}
+
+  lucky:
+    name: "幸运"
+    desc: "幸运值提升"
+    targets: [ANY]
+    effect: attribute
+    attribute: LUCK
+    operation: add
+    display: FLAT
+    weight: 8
+    tiers:
+      1: {min: 1, max: 1, weight: 42, cost: 1}
+      2: {min: 1, max: 2, weight: 28, cost: 2}
+      3: {min: 2, max: 3, weight: 16, cost: 3}
+      4: {min: 3, max: 4, weight: 8, cost: 4}
+      5: {min: 4, max: 5, weight: 3, cost: 5}
+
+  absorption:
+    name: "吸收"
+    desc: "伤害吸收上限提升"
+    targets: [ANY]
+    effect: attribute
+    attribute: MAX_ABSORPTION
+    operation: add
+    display: FLAT
+    weight: 8
+    tiers:
+      1: {min: 2, max: 3, weight: 42, cost: 1}
+      2: {min: 4, max: 5, weight: 28, cost: 2}
+      3: {min: 6, max: 8, weight: 16, cost: 3}
+      4: {min: 9, max: 12, weight: 8, cost: 4}
+      5: {min: 13, max: 16, weight: 3, cost: 5}
+
+  curse_heavy:
+    name: "笨重"
+    desc: "诅咒：移动速度降低"
+    positive: false
+    targets: [ANY]
+    effect: attribute
+    attribute: MOVEMENT_SPEED
+    operation: add_scalar
+    display: PERCENT
+    conflicts: [swift]
+    weight: 5
+    tiers:
+      1: {min: -0.06, max: -0.03, weight: 60, cost: 1}
+      2: {min: -0.10, max: -0.07, weight: 30, cost: 2}
+      3: {min: -0.15, max: -0.11, weight: 10, cost: 3}
+
+  curse_slow:
+    name: "滞缓"
+    desc: "诅咒：移动速度降低"
+    positive: false
+    targets: [ANY]
+    effect: attribute
+    attribute: MOVEMENT_SPEED
+    operation: add_scalar
+    display: PERCENT
+    conflicts: [swift]
+    weight: 4
+    tiers:
+      1: {min: -0.05, max: -0.02, weight: 60, cost: 1}
+      2: {min: -0.09, max: -0.06, weight: 30, cost: 2}
+
+  curse_fragile:
+    name: "易碎"
+    desc: "诅咒：耐久损耗概率增加"
+    positive: false
+    targets: [ANY]
+    effect: durability_save
+    display: PERCENT
+    conflicts: [mending]
+    weight: 5
+    tiers:
+      1: {min: -0.16, max: -0.10, weight: 60, cost: 1}
+      2: {min: -0.24, max: -0.18, weight: 30, cost: 2}
+      3: {min: -0.32, max: -0.26, weight: 10, cost: 3}
+
+  curse_weak:
+    name: "虚弱"
+    desc: "诅咒：生命上限降低"
+    positive: false
+    targets: [ANY]
+    effect: attribute
+    attribute: MAX_HEALTH
+    operation: add
+    display: FLAT
+    conflicts: [vitality]
+    weight: 4
+    tiers:
+      1: {min: -3, max: -2, weight: 60, cost: 1}
+      2: {min: -5, max: -4, weight: 30, cost: 2}
+      3: {min: -8, max: -6, weight: 10, cost: 3}
+
+  curse_brittle:
+    name: "脆化"
+    desc: "诅咒：受到的伤害增加"
+    positive: false
+    targets: [ANY]
+    effect: damage_taken
+    display: PERCENT
+    weight: 5
+    tiers:
+      1: {min: 0.05, max: 0.08, weight: 60, cost: 1}
+      2: {min: 0.10, max: 0.14, weight: 30, cost: 2}
+      3: {min: 0.16, max: 0.22, weight: 10, cost: 3}
+

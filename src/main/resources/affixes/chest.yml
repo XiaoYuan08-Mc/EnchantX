@@ -1,0 +1,79 @@
+pool: chest
+
+affixes:
+  bulwark:
+    name: "铁壁"
+    desc: "护甲值提升"
+    targets: [CHESTPLATE]
+    effect: attribute
+    attribute: ARMOR
+    operation: add
+    display: FLAT
+    weight: 12
+    tiers:
+      1: {min: 1.4, max: 2.0, weight: 42, cost: 1}
+      2: {min: 2.2, max: 2.8, weight: 28, cost: 2}
+      3: {min: 3.0, max: 3.8, weight: 16, cost: 3}
+      4: {min: 4.0, max: 4.8, weight: 8, cost: 4}
+      5: {min: 5.0, max: 6.0, weight: 3, cost: 5}
+
+  rebound:
+    name: "反震"
+    desc: "受击时反弹部分伤害"
+    targets: [CHESTPLATE]
+    effect: reflect
+    display: PERCENT
+    group: sustain
+    weight: 9
+    tiers:
+      1: {min: 0.05, max: 0.08, weight: 42, cost: 1}
+      2: {min: 0.09, max: 0.13, weight: 28, cost: 2}
+      3: {min: 0.14, max: 0.19, weight: 16, cost: 3}
+      4: {min: 0.20, max: 0.26, weight: 8, cost: 4}
+      5: {min: 0.27, max: 0.35, weight: 3, cost: 5}
+
+  reserve:
+    name: "蓄能"
+    desc: "伤害吸收上限提升"
+    targets: [CHESTPLATE]
+    effect: attribute
+    attribute: MAX_ABSORPTION
+    operation: add
+    display: FLAT
+    weight: 8
+    tiers:
+      1: {min: 2, max: 3, weight: 42, cost: 1}
+      2: {min: 4, max: 5, weight: 28, cost: 2}
+      3: {min: 6, max: 8, weight: 16, cost: 3}
+      4: {min: 9, max: 12, weight: 8, cost: 4}
+      5: {min: 13, max: 18, weight: 3, cost: 5}
+
+  lastwall:
+    name: "坚壁"
+    desc: "低血量时额外减伤"
+    targets: [CHESTPLATE]
+    effect: last_stand
+    display: PERCENT
+    weight: 8
+    tiers:
+      1: {min: 0.04, max: 0.07, weight: 42, cost: 1}
+      2: {min: 0.08, max: 0.11, weight: 28, cost: 2}
+      3: {min: 0.12, max: 0.15, weight: 16, cost: 3}
+      4: {min: 0.16, max: 0.20, weight: 8, cost: 4}
+      5: {min: 0.21, max: 0.26, weight: 3, cost: 5}
+
+  mantle:
+    name: "披风"
+    desc: "护甲韧性提升"
+    targets: [CHESTPLATE]
+    effect: attribute
+    attribute: ARMOR_TOUGHNESS
+    operation: add
+    display: FLAT
+    weight: 8
+    tiers:
+      1: {min: 0.8, max: 1.2, weight: 42, cost: 1}
+      2: {min: 1.4, max: 1.8, weight: 28, cost: 2}
+      3: {min: 2.0, max: 2.6, weight: 16, cost: 3}
+      4: {min: 2.8, max: 3.4, weight: 8, cost: 4}
+      5: {min: 3.6, max: 4.4, weight: 3, cost: 5}

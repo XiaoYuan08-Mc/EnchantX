@@ -1,0 +1,20 @@
+# 构建产物
+build/
+.gradle/
+out/
+run/
+logs/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# 本机路径配置（含 JDK 绝对路径）
+gradle.properties.local
+
+# 系统
+.DS_Store
+Thumbs.db
