@@ -6,6 +6,7 @@ import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -16,7 +17,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
@@ -25,6 +25,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -102,6 +104,9 @@ public final class SupportListener implements Listener {
                             next.breakNaturally(player.getInventory().getItemInMainHand());
                             broken++;
                             queue.add(next);
+                            if (!consumeTool(player)) {
+                                return;
+                            }
                             if (broken >= limit) {
                                 break;
                             }
@@ -120,8 +125,28 @@ public final class SupportListener implements Listener {
         }
     }
 
-    private boolean isVeinTarget(Material material) {
-        String name = material.name();
+    /** 连锁额外挖的方块也吃耐久：工具碎了就停下。 */
+    private boolean consumeTool(Player player) {
+        ItemStack tool = player.getInventory().getItemInMainHand();
+        if (tool.getType().isAir() || tool.getType().getMaxDurability() <= 0) {
+            return true;
+        }
+        ItemMeta meta = tool.getItemMeta();
+        if (!(meta instanceof Damageable damageable)) {
+            return true;
+        }
+        int next = damageable.getDamage() + 1;
+        if (next >= tool.getType().getMaxDurability()) {
+            player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+            player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 0.8f, 0.9f);
+            return false;
+        }
+        damageable.setDamage(next);
+        tool.setItemMeta(meta);
+        return true;
+    }
+
+    private boolean isVeinTarget(Material material) {        String name = material.name();
         return name.contains("ORE")
                 || name.endsWith("_LOG")
                 || name.endsWith("_WOOD")

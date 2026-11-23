@@ -272,7 +272,7 @@ public final class CombatListener implements Listener {
             bonus += profile.get("undead_bonus");
         }
         if (name.contains("SPIDER") || name.contains("SILVERFISH") || name.contains("ENDERMITE")
-                || name.contains("BEE") || name.contains("BOGGED")) {
+                || name.contains("BEE")) {
             bonus += profile.get("arthropod_bonus");
         }
         return Math.min(0.6, bonus);
@@ -305,7 +305,4 @@ public final class CombatListener implements Listener {
         }
         return null;
     }
-
-    @SuppressWarnings("unused")
-    private static final List<String> ATTRIBUTE_NOTE = List.of();
 }

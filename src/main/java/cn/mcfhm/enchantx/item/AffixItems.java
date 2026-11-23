@@ -107,7 +107,7 @@ public final class AffixItems {
             meta.setEnchantmentGlintOverride(null);
         } else {
             meta.getPersistentDataContainer().set(dataKey, PersistentDataType.STRING, data.encode());
-            applyModifiers(meta, data);
+            applyModifiers(meta, data, item.getType());
             renderLore(meta, data, capacity(item.getType()));
             if (!meta.hasEnchants()) {
                 meta.setEnchantmentGlintOverride(Boolean.TRUE);
@@ -142,7 +142,8 @@ public final class AffixItems {
         }
     }
 
-    private void applyModifiers(ItemMeta meta, AffixData data) {
+    private void applyModifiers(ItemMeta meta, AffixData data, Material material) {
+        EquipmentSlotGroup group = slotGroup(material);
         for (AffixInstance instance : data.list()) {
             AffixDef def = manager.get(instance.defId());
             if (def == null || !def.isAttribute()) {
@@ -155,8 +156,22 @@ public final class AffixItems {
             NamespacedKey key = new NamespacedKey(plugin, MOD_PREFIX + instance.slot() + "_"
                     + def.id().toLowerCase(Locale.ROOT));
             meta.addAttributeModifier(def.attribute(), new AttributeModifier(
-                    key, amount, def.operation(), EquipmentSlotGroup.ANY));
+                    key, amount, def.operation(), group));
         }
+    }
+
+    /** 属性只在"该穿/该拿"的位置生效：盔甲部件按部位，其余按手持。 */
+    private EquipmentSlotGroup slotGroup(Material material) {
+        if (material == null) {
+            return EquipmentSlotGroup.ANY;
+        }
+        return switch (Mats.category(material)) {
+            case "HELMET" -> EquipmentSlotGroup.HEAD;
+            case "CHESTPLATE", "ELYTRA" -> EquipmentSlotGroup.CHEST;
+            case "LEGGINGS" -> EquipmentSlotGroup.LEGS;
+            case "BOOTS" -> EquipmentSlotGroup.FEET;
+            default -> EquipmentSlotGroup.HAND;
+        };
     }
 
     private void stripLore(ItemMeta meta) {

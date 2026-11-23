@@ -9,6 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -99,6 +100,7 @@ public final class SelfTest {
         int badTier = 0;
         int badConflict = 0;
         int badLore = 0;
+        int badGroup = 0;
         for (AffixDef def : plugin.manager().defs().values()) {
             for (int tier : def.tierKeys()) {
                 AffixTier t = def.tier(tier);
@@ -130,7 +132,23 @@ public final class SelfTest {
                 badLore++;
                 log.warning("[selftest] lore 异常：" + def.id() + " → " + probeLines + " 行");
             }
+            if (def.isAttribute() && probeMeta != null) {
+                Collection<AttributeModifier> mods = probeMeta.getAttributeModifiers(def.attribute());
+                EquipmentSlotGroup expected = expectedGroup(probeMaterial);
+                if (mods != null) {
+                    for (AttributeModifier modifier : mods) {
+                        if (modifier.getKey() != null
+                                && "enchantx".equals(modifier.getKey().getNamespace())
+                                && modifier.getSlotGroup() != expected) {
+                            badGroup++;
+                            log.warning("[selftest] 属性作用位异常：" + def.id()
+                                    + " 期望 " + expected + " 实际 " + modifier.getSlotGroup());
+                        }
+                    }
+                }
+            }
         }
+        pass += check(log, badGroup == 0, "属性修饰符作用位正确（异常 " + badGroup + "）");
         pass += check(log, badLore == 0, "全量单条 lore 渲染正常（异常 " + badLore + "）");
         pass += check(log, badTier == 0, "档位区间合法（非法 " + badTier + "）");
         pass += check(log, badConflict == 0, "conflicts 指向存在（悬空 " + badConflict + "）");
@@ -162,9 +180,18 @@ public final class SelfTest {
             java.util.Map.entry("FISHING_ROD", Material.FISHING_ROD)
     );
 
+    private static EquipmentSlotGroup expectedGroup(Material material) {
+        return switch (cn.mcfhm.enchantx.util.Mats.category(material)) {
+            case "HELMET" -> EquipmentSlotGroup.HEAD;
+            case "CHESTPLATE", "ELYTRA" -> EquipmentSlotGroup.CHEST;
+            case "LEGGINGS" -> EquipmentSlotGroup.LEGS;
+            case "BOOTS" -> EquipmentSlotGroup.FEET;
+            default -> EquipmentSlotGroup.HAND;
+        };
+    }
+
     /** 按词条适用范围挑一件代表装备，用于渲染自检。 */
-    private static Material probeMaterial(AffixDef def) {
-        for (String target : def.targets()) {
+    private static Material probeMaterial(AffixDef def) {        for (String target : def.targets()) {
             if (target.equals("ANY")) {
                 return Material.DIAMOND_SWORD;
             }
