@@ -227,8 +227,17 @@ public final class SupportListener implements Listener {
         if (material == null) {
             return null;
         }
-        ItemStack out = new ItemStack(material, stack.getAmount());
-        return out;
+        // 带自定义名 / lore / PDC 的物品（商店货、任务物）要连元数据一起搬到产物上
+        org.bukkit.inventory.meta.ItemMeta meta = stack.getItemMeta();
+        boolean custom = meta != null && (meta.hasDisplayName() || meta.hasLore()
+                || !meta.getPersistentDataContainer().isEmpty()
+                || !meta.getEnchants().isEmpty());
+        if (custom) {
+            ItemStack out = stack.clone();
+            out.setType(material);
+            return out;
+        }
+        return new ItemStack(material, stack.getAmount());
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

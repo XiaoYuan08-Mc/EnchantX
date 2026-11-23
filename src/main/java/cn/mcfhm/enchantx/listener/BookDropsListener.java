@@ -82,7 +82,8 @@ public final class BookDropsListener implements Listener {
         } else {
             player.getInventory().addItem(book);
         }
-        player.sendActionBar("§d词条书 §8· §f" + roll.def().name() + " " + Texts.roman(roll.tier()));
+        player.sendActionBar(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
+                .legacySection().deserialize("§d词条书 §8· §f" + roll.def().name() + " " + Texts.roman(roll.tier())));
     }
 
     private BookRoll randomBook(int minTier, int maxTier) {

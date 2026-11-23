@@ -62,6 +62,13 @@ public final class EnchantX extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new SupportListener(profiles), this);
         getServer().getPluginManager().registerEvents(new BookDropsListener(this, items), this);
         getServer().getPluginManager().registerEvents(new ReforgeGui.Handler(), this);
+        // 碎片缓存的清理跟着退出事件走，避免 UUID 常驻
+        getServer().getPluginManager().registerEvents(new org.bukkit.event.Listener() {
+            @org.bukkit.event.EventHandler
+            public void onQuit(org.bukkit.event.player.PlayerQuitEvent event) {
+                fragments.forget(event.getPlayer());
+            }
+        }, this);
 
         getServer().getScheduler().runTaskTimer(this, new cn.mcfhm.enchantx.task.PassiveTask(this), 80L, 80L);
 
@@ -100,6 +107,7 @@ public final class EnchantX extends JavaPlugin {
         settings = Settings.load(getConfig());
         items.updateSettings(settings);
         manager.load();
+        fragments.clear();
         if (profiles != null) {
             profiles.clear();
         }

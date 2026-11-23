@@ -49,7 +49,9 @@ public final class ReforgeGui implements InventoryHolder {
     }
 
     public void open() {
-        this.inventory = Bukkit.createInventory(this, SIZE, "§8词条重铸台");
+        this.inventory = Bukkit.createInventory(this, SIZE,
+                net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
+                        .legacySection().deserialize("§8词条重铸台"));
         render();
         player.openInventory(inventory);
     }
@@ -153,7 +155,8 @@ public final class ReforgeGui implements InventoryHolder {
         ItemStack stack = new ItemStack(material);
         ItemMeta meta = stack.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName(name);
+            meta.displayName(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
+                    .legacySection().deserialize(name));
             if (!lore.isEmpty()) {
                 meta.setLore(lore);
             }
@@ -310,8 +313,21 @@ public final class ReforgeGui implements InventoryHolder {
 
         @EventHandler
         public void onClick(InventoryClickEvent event) {
-            if (event.getInventory().getHolder() instanceof ReforgeGui gui) {
+            if (!(event.getInventory().getHolder() instanceof ReforgeGui gui)) {
+                return;
+            }
+            boolean top = event.getClickedInventory() != null
+                    && event.getClickedInventory().equals(event.getInventory());
+            // 顶部格子完全由插件接管；底部背包放行，让玩家能整理自己东西，
+            // 但"塞进界面"的几种操作必须拦：Shift 移动、双击收集、副手交换。
+            boolean movesIntoGui = event.isShiftClick()
+                    || event.getAction() == org.bukkit.event.inventory.InventoryAction.MOVE_TO_OTHER_INVENTORY
+                    || event.getAction() == org.bukkit.event.inventory.InventoryAction.COLLECT_TO_CURSOR
+                    || event.getClick() == org.bukkit.event.inventory.ClickType.SWAP_OFFHAND;
+            if (top || movesIntoGui) {
                 event.setCancelled(true);
+            }
+            if (top) {
                 gui.handle(event);
             }
         }

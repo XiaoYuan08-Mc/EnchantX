@@ -263,7 +263,8 @@ public final class AffixItems {
         if (meta == null) {
             return stack;
         }
-        meta.setDisplayName("§d词条书 §8· §f" + def.name() + " " + Texts.roman(tier));
+        meta.displayName(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
+                .legacySection().deserialize("§d词条书 §8· §f" + def.name() + " " + Texts.roman(tier)));
         List<String> lore = new ArrayList<>();
         if (!def.desc().isBlank()) {
             lore.add("§7" + def.desc());

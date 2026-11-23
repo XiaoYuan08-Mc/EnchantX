@@ -106,7 +106,18 @@ public final class AffixManager {
 
     /** 新词条能否落在现有组合上：同 id、同组、双向 conflicts 都不允许。 */
     public boolean canAdd(AffixDef def, AffixData data) {
+        return canAdd(def, data, null);
+    }
+
+    /**
+     * 带物品类别的判定。category 为 null 时只做冲突判定（附魔台 / 重铸走候选池，池已按类别筛过）；
+     * 铁砧这类"玩家自选词条"的入口必须传 category，否则武器词条能被贴到盔甲上。
+     */
+    public boolean canAdd(AffixDef def, AffixData data, String category) {
         if (def == null || data == null) {
+            return false;
+        }
+        if (category != null && !def.matches(category)) {
             return false;
         }
         for (AffixInstance in : data.list()) {
