@@ -14,7 +14,7 @@
 
 ## 附魔台模式
 
-在 `config.yml` 的 `enchant-table.mode` 里切：
+在 `config.yml` 的 `settings.mode` 里切：
 
 - `AFFIX`：清空原版附魔，只出词条。适合新服或纯 RPG 服。
 - `HYBRID`：默认。原版附魔照常，按 `hybrid-chance` 概率再挂一条词条，数值乘以 `hybrid-scale`。
@@ -78,10 +78,10 @@ books:
   buy-tier: 2
 ```
 
-- `global-scale`：所有词条数值的全局系数。
-- `hybrid-scale`：HYBRID 模式额外词条的打折系数。
+- `settings.global-scale`：所有词条数值的全局系数。
+- `settings.hybrid-scale`：HYBRID 模式额外词条的打折系数。
 - `costs.*`：重铸、升档、买书的价格。
-- `caps.*`：暴击、减伤、吸血等上限，改之前先想清楚。
+- 暴击、减伤、吸血这些上限写在代码里，要改得动源码。
 
 ## 数据
 
