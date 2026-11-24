@@ -147,7 +147,7 @@ public final class ReforgeGui implements InventoryHolder {
         if (isLocked) {
             lore.add("§b已锁定，重掷时保留");
         }
-        String name = (isLocked ? "§b🔒 " : "") + color + def.name() + " " + Texts.roman(instance.tier());
+        String name = (isLocked ? "§b[锁] " : "") + color + def.name() + " " + Texts.roman(instance.tier());
         return icon(Material.PAPER, name, lore);
     }
 
@@ -225,16 +225,20 @@ public final class ReforgeGui implements InventoryHolder {
         }
         AffixItems items = plugin.items();
         Settings settings = plugin.settings();
+        ItemStack base = held();
+        AffixData current = items.read(base);
+        AffixData next = plugin.engine().roll(items.manager(), base, items.capacity(base.getType()),
+                settings.reforgePower(), current, locked, settings.globalScale());
+        if (next.isEmpty()) {
+            message("§7当前没有可用的词条，未扣除碎片");
+            return;
+        }
         int cost = rerollCost();
         if (!plugin.fragments().take(player, cost)) {
             message("§c碎片不足，需要 §f" + cost + " §c，当前 §f" + plugin.fragments().get(player));
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.7f, 0.6f);
             return;
         }
-        ItemStack base = held();
-        AffixData current = items.read(base);
-        AffixData next = plugin.engine().roll(items.manager(), base, items.capacity(base.getType()),
-                settings.reforgePower(), current, locked, settings.globalScale());
         apply(next);
         player.playSound(player.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 0.8f, 1.1f);
         message("§7已重掷，消耗 §f" + cost + " §7碎片");

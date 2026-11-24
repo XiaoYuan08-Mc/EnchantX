@@ -1,141 +1,105 @@
 # EnchantX
 
-在 Purpur / Paper 26.3 上跑的插件，Java 25。它把原版附魔改成能滚动、能重铸、能拆解的词条，附魔台、铁砧、砂轮这些入口都保留着。
+原版附魔重做插件，支持 Purpur / Paper 26.3 和 Java 25。
 
-产物是 `build/libs/EnchantX-0.2.0.jar`，约 100 KB，单个 jar，不依赖别的插件。84 条词条分 9 个池，已在 Purpur 26.3 服务端跑过自检。
+附魔台、铁砧、重铸台、拆解都保留，产出的是自己的一套词条。84 条词条分在 9 个池里，每条五个档位，档位内还有数值区间。单个 jar，不依赖其他插件。
 
 ## 安装
 
-1. 把 `EnchantX-0.2.0.jar` 丢进 `plugins/`。
-2. 启动服务器，生成 `plugins/EnchantX/config.yml` 与 `plugins/EnchantX/affixes/*.yml`（9 份）。
-3. 进服 `/ex help` 看指令，`/ex give weapon 3 3` 先拿几本词条书试手感，`/ex buy any` 体验碎片购买。
+1. 把 `EnchantX-0.2.1.jar` 放进 `plugins/`。
+2. 启动后生成 `plugins/EnchantX/config.yml` 和 `affixes/` 下的 9 个池文件。
+3. 进服 `/ex help` 看命令。想试手感可以 `/ex give weapon 3 3` 拿几本词条书。
 
-权限：`enchantx.use`（默认全体）、`enchantx.admin`（默认 OP）。
+权限：`enchantx.use` 默认所有人，`enchantx.admin` 默认 OP。
 
-## 三种模式（config.yml）
+## 附魔台模式
 
-| 模式 | 附魔台行为 | 适用 |
-|---|---|---|
-| `AFFIX` | 清空原版附魔，只产词条（完全重制） | 新服、RPG 服 |
-| `HYBRID`（默认） | 原版附魔照常，按 `hybrid-chance` 概率额外挂 1 条词条，数值按 `hybrid-scale` 打折 | 老服平滑上线 |
-| `VANILLA` | 不碰附魔台，只用重铸 / 拆解 / 展示 | 只想要词条层 |
+在 `config.yml` 的 `enchant-table.mode` 里切：
 
-## 五条产出腿
+- `AFFIX`：清空原版附魔，只出词条。适合新服或纯 RPG 服。
+- `HYBRID`：默认。原版附魔照常，按 `hybrid-chance` 概率再挂一条词条，数值乘以 `hybrid-scale`。
+- `VANILLA`：不动附魔台，只用重铸、拆解和词条书。
 
-- **附魔台**：按等级决定档位倾向（30 级明显更容易出高档），产物是词条而不是固定附魔。
-- **铁砧**：词条书砸装备（重掷数值）、两件装备合并（同名词条取高档）。
-- **重铸台** `/ex reforge`：整个玩法的核心消耗点。左键词条=升档，右键=锁定，重掷按钮只洗未锁定的槽。
-- **拆解** `/ex salvage`：清空词条并按"档位 × 2"返还碎片，碎片存在玩家 PDC 里，不占背包。
-- **词条书五渠道**（v0.2 新增）：击杀怪物（默认 6%）、箱子战利品（10%）、钓鱼（8%）、`/ex buy` 碎片直购（一本 18 碎片）、`/ex give` 管理发放。
+## 玩法
 
-## 词条池（84 条 / 9 池）
+- 附魔台：等级越高越容易出高档词条。
+- 铁砧：词条书砸装备可以重掷数值；两件装备合并时同名词条取高的那档。
+- 重铸台 `/ex reforge`：左键词条升档，右键锁定，重掷只洗没锁的槽位。
+- 拆解 `/ex salvage`：清空词条，按档位返还碎片。碎片存在玩家身上，不占背包。
+- 词条书来源：杀怪、箱子战利品、钓鱼、碎片购买、管理员发放。
 
-- `weapon`（22）：锋利、亡灵杀手、节肢杀手、暴击、致命、吸血、破甲、真伤、处决、燎原、击退、淬毒、凋零、霜缚、先手、嗜杀、顺劈、连击、血刃、破军，外加钝化、迟滞两条诅咒。
-- `tool`（10）：效率、时运、触及、熔炼、悟性、连锁、掘进、寻宝、迟钝、笨拙。
-- `armor`（12，通用防具）：保护、护甲、韧性、生命、抗性、反伤、闪避、缓降、迅捷、饱食、鳃、守望。
-- `helmet`（5，头盔专属）：博识、感知、夜眼、潜息、专注。
-- `chest`（5，胸甲专属）：铁壁、反震、蓄能、坚壁、披风。
-- `legs`（5，护腿专属）：疾行、稳足、耐力、坚韧、缓冲。
-- `boots`（5，靴子专属）：轻盈、踏雪、疾步、涉水、护胫。
-- `ranged`（11）：力量、穿透、冲击、火矢、精准、致命射击、毒矢、穿云、追猎、稳手、弱弓。
-- `universal`（9，任意装备）：修补、悟道、幸运、吸收、脆化、笨重、滞缓、易碎、虚弱。
+## 词条池
 
-每条词条 T1–T5 五档，档内还有 roll 区间（例如 T3 锋利是 3.2–4.2），所以"低档满 roll"可以逼近"高档残 roll"，这是重铸动机的来源。掷点时按装备部位汇总候选：头盔吃 `helmet` 池 + `armor` 池里适配头盔的 + `universal`，四个部位各自专属池互不重叠，所以不会出现"头盔上开出靴子词条"。
+| 池 | 数量 | 说明 |
+| --- | --- | --- |
+| weapon | 22 | 武器通用，含两条诅咒 |
+| tool | 10 | 工具 |
+| armor | 12 | 通用防具 |
+| helmet | 5 | 头盔专属 |
+| chest | 5 | 胸甲专属 |
+| legs | 5 | 护腿专属 |
+| boots | 5 | 靴子专属 |
+| ranged | 11 | 弓弩 |
+| universal | 9 | 任意装备 |
 
-### v0.2 新增的生效机制
-
-| 词条 | 机制 |
-|---|---|
-| 顺劈 `sweep` | 命中后对周围 2.6×1.6×2.6 内最多 4 个目标追加 `damage × sweep`（上限 50%），一 tick 延迟防递归 |
-| 连击 `combo` | 按概率追加一次 ×1.6 伤害，带 SweepAttack 粒子 |
-| 血刃 `rend` | 与吸血同机制的吸血变体（互斥，防止叠两个吸血） |
-| 破军 `breaker` | 破甲变体，与现有破甲互斥 |
-| 连锁 `vein` | 挖矿脉/原木连带相邻方块，最多 `min(10, round(值))` 块，逐块走 `BlockBreakEvent` 判定保护，不会穿领地 |
-| 掘进 / 寻宝 | 挖掘速度、掉落概率的替代款式（与原有效率/时运互斥） |
-| 穿云 / 追猎 / 稳手 | 远程伤害、远程暴击、击退变体 |
-| 坚壁 `last_stand` | 受击者血量 <40% 时额外减伤，与常规减伤叠加但总上限 80% |
-| 脆化 `damage_taken` | 诅咒：承伤增加（新负面维度） |
-| 夜眼 / 潜息 / 专注 | 4 秒周期任务维持夜视、水下呼吸、缓慢自愈（自愈每次 ≤ 最大生命 6%） |
+掷点时按装备部位汇总候选，部位专属池互不重叠。`conflicts` 里配了互斥，同类效果不会同时出现。
 
 ## 槽位
 
-按材质给槽：木/金/皮革 1，石/锁链/铁 2，钻石 3，下界合金 4；未知材质走 `slots.default`。改 `config.yml` 的 `slots.by-material` 即时生效（`/ex reload`）。
+按材质决定可装词条数量：木、金、皮革 1 个；石、锁链、铁 2 个；钻石 3 个；下界合金 4 个。未知材质用 `slots.default`。改完 `/ex reload` 生效。
 
-## 指令
+## 命令
 
 ```
-/ex info                     手持装备的词条、槽位、碎片、当前模式
-/ex list [池] [页]           词条图鉴（9 个池都能单查）
-/ex reforge                  打开重铸台
-/ex reroll [次数]            不开界面直接重掷（每把 6 碎片）
-/ex salvage                  拆解返还碎片
-/ex buy <池|词条id|any> [档]  用碎片买一本词条书（默认 18 碎片、默认 2 档）
-/ex give <词条id|池> [档] [数量]   发词条书（admin）
-/ex fragments <add|set|take> <n>   管理碎片（admin）
-/ex strip                    清空手持装备词条，不返还（admin）
-/ex reload                   重载配置与词条库（admin）
+/ex info                          查看手持装备的词条、槽位、碎片
+/ex list [池] [页]                词条图鉴
+/ex reforge                       打开重铸台
+/ex reroll [次数]                 不开界面直接重掷
+/ex salvage                       拆解手持装备
+/ex buy <池|词条id|any> [档]       用碎片买词条书
+/ex give <词条id|池> [档] [数量]    发词条书（管理员）
+/ex fragments <add|set|take> <n>   改碎片（管理员）
+/ex strip                         清空词条，不返还（管理员）
+/ex reload                        重载配置和词条库（管理员）
 ```
 
 别名 `/ex`、`/cx`。
 
-## 词条书配置（config.yml `books:`）
+## 配置
+
+`config.yml` 里常改的：
 
 ```yaml
 books:
-  drop-chance: 0.06      # 击杀怪物掉书概率
-  loot-chance: 0.10      # 箱子战利品出现概率
-  fishing-chance: 0.08   # 钓鱼钓到概率
-  buy-cost: 18           # /ex buy 单价（碎片）
-  buy-tier: 2            # /ex buy 默认档位
+  drop-chance: 0.06
+  loot-chance: 0.10
+  fishing-chance: 0.08
+  buy-cost: 18
+  buy-tier: 2
 ```
 
-野外掉书的档位按 `random^2.2` 压向低档（杀怪/钓鱼最高 3 档、箱子最高 4 档），所以高档书仍然主要从重铸台买时间。
+- `global-scale`：所有词条数值的全局系数。
+- `hybrid-scale`：HYBRID 模式额外词条的打折系数。
+- `costs.*`：重铸、升档、买书的价格。
+- `caps.*`：暴击、减伤、吸血等上限，改之前先想清楚。
 
-## 平衡口径
+## 数据
 
-- `global-scale`：全局数值系数，最省事的平衡旋钮。
-- `hybrid-scale`：HYBRID 模式下额外词条的打折系数，默认 0.6，避免"原版附魔 + 满词条"双叠。
-- 事件侧硬帽：暴击率 ≤ 60%、减伤 ≤ 80%、吸血 ≤ 35%、破甲加成 ≤ 60%、处决 ≤ 60%，连锁最多 10 块，防止词条堆叠失控。
-- 强度基线：满槽词条 ≈ 原版同级满配附魔，默认不改动原版数值。
-- 部位专属池 + `conflicts` 双向互斥：同名机制的变体（吸血/破甲/时运/效率/远程伤害/暴击/击退）互相排斥，不会出现"两个吸血叠满"。
+词条存在物品的 PDC 里，单键 `enchantx:affix`，格式是紧凑字符串。卸掉插件后物品不会坏，只是词条不再生效。
 
-## 技术实现
+属性类词条用 AttributeModifier，事件类走缓存，战斗时只读内存。lore 只摘自己加的那几行，不会动别的插件写的内容。
 
-- 存储：单键 `enchantx:affix`，紧凑串 `v1|sharpness:3:3.42:1;lifesteal:2:0.07:2`，一次 PDC 读取拿到全部词条。
-- 属性类词条走 `AttributeModifier`，key 统一 `enchantx:ax_<槽>_<id>`，作用位按部位走（头盔 HEAD、胸甲/鞘翅 CHEST、护腿 LEGS、靴子 FEET，其余 HAND），拿着不当穿戴，卸下或重渲染时按命名空间精准摘除，不留残留。
-- 事件类词条走 `ProfileService`：登录/换装失效，500ms 兜底重建，战斗热路径只读 Map，单次伤害结算 ~40µs 量级。
-- 被动类（夜视/水下呼吸/自愈）走 `PassiveTask`，每 80 tick 统一校准，不额外注册每个词条一个任务。
-- lore 渲染带 `◈ / ◆` 标记，重写时只摘自己的行，不会抹掉其他插件加的 lore。
-- 卸载干净：`/ex strip` 可逐件清理；数据全部在 PDC，卸载插件后物品不会坏档。
+## 已知限制
 
-## 调试
+- 砂轮不处理词条，拆解请用 `/ex salvage` 或重铸台。
+- 连锁挖掘会逐块检查保护插件，比直接 break 慢一点，工具快坏时会提前停。
+- 词条书砸装备的数值是重新 roll 的，可能越砸越差。不接受的话把 `costs.upgrade` 调低，或者只用重铸台升档。
 
-启动参数加 `-Denchantx.selftest=true`（PowerShell 下建议把参数放进数组再 `&` 调用，否则 `-D` 可能被吞），会跑一遍不依赖玩家的自检：掷点、不超槽位、PDC 往返、lore 头/行数、属性修饰符数量、冲突判定、词条书读写、全量档位合法、`conflicts` 指向存在、84 条词条逐条渲染。
+## 构建
 
-当前真实 Purpur 26.3 服务端结果：**17 项通过 / 0 失败**，`已载入 84 条词条，共 9 个池`，84/84 全量渲染正常，属性作用位逐条核对无异常。
-
-## 工程
-
-```
-src/main/java/cn/mcfhm/enchantx/
-├── EnchantX.java            主类、装配、reload、默认资源清单
-├── SelfTest.java            启动自检
-├── affix/                   词条模型、库、掷点引擎
-├── item/AffixItems.java     PDC 读写、属性、lore、词条书
-├── combat/                  战斗系数缓存
-├── economy/FragmentBank.java
-├── gui/ReforgeGui.java      重铸台
-├── command/EnchantXCommand.java
-├── task/PassiveTask.java    夜视/水下呼吸/自愈周期校准
-└── listener/                附魔台、铁砧、战斗、连锁挖掘、词条书掉落
+```powershell
+& 'D:\scoop\apps\gradle\current\bin\gradle.bat' -p 'G:\插件\原版附魔扩展' build --console=plain `
+  '-Dorg.gradle.java.installations.paths=D:\mo-jdk\jdk-25.0.5+8'
 ```
 
-构建：`gradle build`（需要 JDK 25，`gradle.properties` 里已指向本机 Temurin 25 路径）。
-
-## 已知边界
-
-- 砂轮目前不接管词条（用 `/ex salvage` 或重铸台的拆解按钮），后续可以补 `PrepareGrindstoneEvent`。
-- 暂不做"镜像成真附魔"（会与 EcoEnchants 生态双算），需要互通时用 `HYBRID` 模式即可共存。
-- 连锁挖掘按"每块都问一次插件管理器"实现，额外挖的方块同样掉工具耐久，工具快碎时会停下；极端情况下比纯 `breakNaturally` 慢一点，但能兼容领地/保护插件。
-- 砸书时的数值重掷是设计使然；如果服里不接受"越砸越差"，把 `costs.upgrade` 调低、改用重铸台升档会更温和。
-- 单机自检只覆盖数据与渲染链路，GUI 点击、附魔台改写、连锁挖掘的实际手感需要真人客户端验证。
+产物在 `build/libs/`。

@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
-/** 启动自检：不依赖玩家，验证掷点、存储、属性与 lore 链路。 */
+/** 启动自检：不依赖玩家，验证掷点、存储、属性与 lore 处理。 */
 public final class SelfTest {
 
     private SelfTest() {

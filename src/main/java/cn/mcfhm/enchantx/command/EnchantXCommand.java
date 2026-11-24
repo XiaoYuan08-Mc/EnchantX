@@ -195,7 +195,6 @@ public final class EnchantXCommand implements CommandExecutor, TabCompleter {
         int fragments = 0;
         for (AffixInstance instance : data.list()) {
             fragments += instance.tier() * plugin.settings().salvagePerTier();
-            items.manager().get(instance.defId());
         }
         ItemStack copy = held.clone();
         items.strip(copy);
@@ -317,7 +316,8 @@ public final class EnchantXCommand implements CommandExecutor, TabCompleter {
                 + " §7，消耗 §d" + cost + " §7碎片");
     }
 
-    private void fragments(Player player, String[] args) {        if (!player.hasPermission("enchantx.admin")) {
+    private void fragments(Player player, String[] args) {
+        if (!player.hasPermission("enchantx.admin")) {
             player.sendMessage(PREFIX + "§c没有权限");
             return;
         }

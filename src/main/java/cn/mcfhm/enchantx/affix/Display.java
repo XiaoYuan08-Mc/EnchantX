@@ -1,6 +1,6 @@
 package cn.mcfhm.enchantx.affix;
 
-/** 词条数值展示口径。 */
+/** 词条数值的显示规则。 */
 public enum Display {
     FLAT,
     PERCENT,
