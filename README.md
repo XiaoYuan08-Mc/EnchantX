@@ -98,8 +98,7 @@ books:
 ## 构建
 
 ```powershell
-& 'D:\scoop\apps\gradle\current\bin\gradle.bat' -p 'G:\插件\原版附魔扩展' build --console=plain `
-  '-Dorg.gradle.java.installations.paths=D:\mo-jdk\jdk-25.0.5+8'
+.\gradlew.bat build --console=plain
 ```
 
 产物在 `build/libs/`。
